@@ -6,15 +6,26 @@ import os
 import shlex
 class Emulator:
     def __init__(self, root):
+        bg_color = "#000000"
+        pr_color = "#293133"
+        fg_color = "#ffffff"
+        scroll_color = "#00FF00"
+        font_style = ("Courier New", 10)
+
         self.root = root
         username = getpass.getuser()
         hostname = socket.gethostname()
         self.root.title(f"Эмулятор - [{username}@{hostname}]")
+        self.root.configure(bg=bg_color)
 
-        self.output_area = ScrolledText(root, state='disabled', height=30, width=100)
-        self.output_area.pack(padx=10, pady=10)
+        self.output_area = ScrolledText(root, state='disabled', height=25, width=50, bg= pr_color, fg = fg_color)
+        self.output_area.pack(padx=5, pady=5)
 
-        self.input_entry = tk.Entry(root, width=100)
+        self.output_area.configure(bg=bg_color, fg=fg_color)
+        self.output_area.vbar.configure(troughcolor=bg_color, bg=scroll_color)
+
+
+        self.input_entry = tk.Entry(root, width=55, bg=pr_color, fg=fg_color)
         self.input_entry.pack(padx=10, pady=(0, 10))
         self.input_entry.bind('<Return>', self.process_input)
 
